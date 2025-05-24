@@ -1,0 +1,28 @@
+org: kauelima21
+
+service: auth-service
+
+provider:
+  name: aws
+  runtime: python3.12
+  architecture: arm64
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'prod'}
+  logRetentionInDays: 3
+  environment: ${file(../../infra/env.yml)}
+  httpApi: ${file(../../infra/http_api/config.yml)}
+
+plugins:
+  - serverless-iam-roles-per-function
+
+package:
+  individually: true
+  exclude:
+    - '*'
+
+functions:
+  - ${file(functions.yml)}
+
+resources:
+  - ${file(../../infra/cognito/mailguru_user_pool.yml)}
+  - ${file(../../infra/cognito/mailguru_user_pool_client.yml)}

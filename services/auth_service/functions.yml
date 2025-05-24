@@ -1,0 +1,10 @@
+signin:
+  name: mailguru_signin_handler_${self:provider.stage}
+  handler: src/signin.handler
+  package:
+    include:
+      - src/signin.py
+  events:
+    - httpApi:
+        path: /v1/sign-in
+        method: GET

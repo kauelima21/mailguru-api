@@ -1,0 +1,18 @@
+disableDefaultEndpoint: true
+authorizers:
+  MailGuruAuthorizer:
+    type: jwt
+    identitySource: $request.header.Authorization
+    issuerUrl: !GetAtt MailGuruUserPool.ProviderURL
+    audience:
+      - !Ref MailGuruUserPoolClient
+cors:
+  allowedOrigins: "*"
+  allowedMethods:
+    - GET
+    - POST
+    - PUT
+    - OPTIONS
+  allowedHeaders:
+    - Content-Type
+    - Authorization
