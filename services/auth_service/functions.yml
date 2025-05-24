@@ -1,10 +1,18 @@
 signin:
   name: mailguru_signin_handler_${self:provider.stage}
-  handler: src/signin.handler
+  handler: src.handlers.signin.handler
+  memorySize: 512
+  layers:
+    - arn:aws:lambda:${self:provider.region}:${aws:accountId}:layer:auth-service-prod-python-requirements:1
   package:
-    include:
-      - src/signin.py
+    patterns:
+      - src/handlers/__init__.py
+      - src/handlers/signin.py
+      - src/models/__init__.py
+      - src/models/authentication.py
+      - ../../shared/errors.py
+      - ../../shared/decorators.py
   events:
     - httpApi:
         path: /v1/sign-in
-        method: GET
+        method: POST

@@ -11,14 +11,31 @@ provider:
   logRetentionInDays: 3
   environment: ${file(../../infra/env.yml)}
   httpApi: ${file(../../infra/http_api/config.yml)}
+  tracing:
+    lambda: true
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "xray:PutTraceSegments"
+        - "xray:PutTelemetryRecords"
+      Resource: "*"
 
 plugins:
   - serverless-iam-roles-per-function
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    fileName: requirements.txt
+    dockerizePip: true
+    dockerPlatform: linux/arm64
+    slim: true
+    layer: true
 
 package:
   individually: true
-  exclude:
-    - '*'
+  patterns:
+    - '!**'
 
 functions:
   - ${file(functions.yml)}

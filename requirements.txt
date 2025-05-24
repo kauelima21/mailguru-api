@@ -1,1 +1,4 @@
 boto3==1.38.23
+pydantic==2.11.5
+pytest==8.3.5
+moto[all]==5.1.5
