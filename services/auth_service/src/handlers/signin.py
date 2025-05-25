@@ -2,7 +2,7 @@ import json
 
 from botocore.exceptions import ClientError
 from pydantic import BaseModel
-from models.authentication import sign_in_user
+from src.models.authentication import sign_in_user
 
 from shared.decorators import http_handler, log_event
 from shared.errors import UnauthorizedError

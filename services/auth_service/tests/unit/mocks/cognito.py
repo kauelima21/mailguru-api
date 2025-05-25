@@ -1,6 +1,6 @@
 import os
 
-from models.authentication import get_new_client, sign_up_user
+from src.models.authentication import get_new_client, sign_up_user
 
 
 def create_mock_cognito_client_pool():
